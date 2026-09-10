@@ -1,0 +1,26 @@
+Marina, é só colocar os arquivos aqui dentro com estes nomes exatos
+que eles aparecem sozinhos no site (sem precisar mexer no código):
+
+FOTO DE PERFIL
+  perfil.jpg
+
+ABA SOCIAL MEDIA
+  video-social-1.mp4
+  video-social-2.mp4
+  video-social-3.mp4
+
+ABA VÍDEO & 3D
+  video-institucional.mp4
+  modelo-3d.jpg   (ou troque a linha no HTML pra .mp4 se for um giro renderizado)
+  video-reel.mp4
+
+ABA IDENTIDADE VISUAL
+  identidade-atlas.jpg
+  identidade-taiken.jpg
+  uniformes.jpg
+
+Dicas rápidas:
+- Vídeos em .mp4, fotos em .jpg (funciona com .png também, só troque a extensão no HTML).
+- Pra vídeo, tenta manter o arquivo abaixo de 20-30MB pra carregar rápido.
+- Depois de subir os arquivos aqui, é só fazer o commit no GitHub Pages que o site atualiza sozinho.
+- Pode apagar este arquivo quando terminar, ele é só um lembrete e não aparece pro visitante.
