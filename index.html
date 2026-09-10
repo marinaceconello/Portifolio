@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marina Ceconello — Portfólio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Alex+Brush&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --roxo: #1A0041;
+    --roxo-fundo: #100029;
+    --azul: #6395EC;
+    --lilas: #9282DF;
+    --lavanda: #E8E6FB;
+    --sombra: rgba(16, 0, 41, 0.55);
+    --radius-card: 14px;
+    --radius-painel: 26px;
+    --font-title: 'Anton', sans-serif;
+    --font-editorial: 'Playfair Display', serif;
+    --font-script: 'Alex Brush', cursive;
+    --font-body: 'Jost', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--roxo-fundo);
+    color: var(--lavanda);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection{ background: var(--azul); color: var(--roxo-fundo); }
+
+  a{ color: var(--lavanda); }
+
+  :focus-visible{
+    outline: 2px solid var(--azul);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+
+  .bg-glow{
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(680px 480px at 85% -5%, rgba(99,149,236,0.16), transparent 60%),
+      radial-gradient(600px 500px at -10% 40%, rgba(146,130,223,0.14), transparent 60%),
+      var(--roxo-fundo);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 4.5rem 1.5rem 3rem;
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero .assinatura{
+    font-family: var(--font-script);
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+    color: var(--lilas);
+    display: block;
+    margin-bottom: -0.4rem;
+  }
+
+  .hero h1{
+    font-family: var(--font-title);
+    font-size: clamp(2.6rem, 11vw, 5.2rem);
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    margin: 0;
+    text-transform: uppercase;
+    color: var(--lavanda);
+  }
+
+  .hero .cargo{
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--azul);
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    margin-top: 0.6rem;
+  }
+
+  .hero p.bio-curta{
+    max-width: 46ch;
+    margin: 1.6rem auto 0;
+    font-size: 1.05rem;
+    color: var(--lavanda);
+    opacity: 0.85;
+  }
+
+  .hero .badges{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-top: 1.8rem;
+  }
+
+  .hero .badges span{
+    border: 1px solid rgba(232,230,251,0.25);
+    border-radius: 999px;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- TABS ---------- */
+  .tabs{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    background: rgba(16,0,41,0.92);
+    backdrop-filter: blur(6px);
+    border-top: 1px solid rgba(232,230,251,0.12);
+    border-bottom: 1px solid rgba(232,230,251,0.12);
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar{ display:none; }
+
+  .tab-btn{
+    flex: 0 0 auto;
+    background: none;
+    border: none;
+    color: var(--lavanda);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    padding: 1rem 1.3rem;
+    cursor: pointer;
+    opacity: 0.55;
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+
+  .tab-btn .num{
+    font-family: var(--font-editorial);
+    font-style: italic;
+    color: var(--lilas);
+    font-size: 0.85rem;
+  }
+
+  .tab-btn[aria-selected="true"]{
+    opacity: 1;
+    border-bottom-color: var(--azul);
+  }
+
+  .tab-btn:hover{ opacity: 0.85; }
+
+  /* ---------- PANELS ---------- */
+  main{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .panel{ display: none; }
+  .panel.active{ display: block; }
+
+  .panel h2{
+    font-family: var(--font-title);
+    text-transform: uppercase;
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+    letter-spacing: -0.01em;
+    margin: 0 0 0.3rem;
+  }
+
+  .panel .kicker{
+    font-family: var(--font-editorial);
+    font-style: italic;
+    color: var(--azul);
+    font-size: 1.05rem;
+    margin: 0 0 2rem;
+  }
+
+  /* Card with corner-bracket frame, echoing the "moldura" from the brand manual */
+  .card{
+    position: relative;
+    background: rgba(232,230,251,0.03);
+    border-radius: var(--radius-card);
+    padding: 1.6rem;
+    box-shadow: 0 18px 40px var(--sombra);
+  }
+
+  .card::before, .card::after{
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--lilas);
+    opacity: 0.7;
+  }
+  .card::before{ top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .card::after{ bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .card h3{
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1.05rem;
+    margin: 0 0 0.6rem;
+    color: var(--lavanda);
+  }
+
+  .card p{
+    font-size: 0.92rem;
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .card .stat{
+    font-family: var(--font-title);
+    font-size: 2rem;
+    color: var(--azul);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .card .stat-label{
+    font-size: 0.8rem;
+    opacity: 0.65;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .section-title{
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--lilas);
+    margin: 2.6rem 0 1.1rem;
+  }
+
+  /* Video / media placeholder slots */
+  .midia-slot{
+    aspect-ratio: 9 / 16;
+    max-height: 420px;
+    border-radius: var(--radius-card);
+    border: 1px dashed rgba(232,230,251,0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    text-align: center;
+    padding: 1.2rem;
+    background: rgba(232,230,251,0.02);
+  }
+
+  .midia-slot .icone{
+    width: 34px; height: 34px;
+    border: 1.5px solid var(--lilas);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-editorial);
+    font-style: italic;
+    color: var(--lilas);
+  }
+
+  .midia-slot span{ font-size: 0.82rem; opacity: 0.7; max-width: 22ch; }
+
+  .midia-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .lista-limpa{
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.2rem;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .lista-limpa li{
+    padding-left: 1.1rem;
+    position: relative;
+    font-size: 0.95rem;
+    opacity: 0.88;
+  }
+
+  .lista-limpa li::before{
+    content: "";
+    position: absolute;
+    left: 0; top: 0.55em;
+    width: 6px; height: 6px;
+    background: var(--azul);
+    border-radius: 50%;
+  }
+
+  .formacao-item{
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(232,230,251,0.12);
+    padding: 0.9rem 0;
+    font-size: 0.95rem;
+  }
+  .formacao-item .quando{
+    font-family: var(--font-editorial);
+    font-style: italic;
+    color: var(--lilas);
+    white-space: nowrap;
+    font-size: 0.85rem;
+  }
+
+  .aviso{
+    font-size: 0.82rem;
+    opacity: 0.6;
+    margin-top: -1.6rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ---------- CONTATO ---------- */
+  .contato-painel{
+    border-radius: var(--radius-painel);
+    background: rgba(232,230,251,0.04);
+    padding: 2.4rem;
+    box-shadow: 0 24px 60px var(--sombra);
+  }
+
+  .contato-lista{
+    list-style: none;
+    padding: 0;
+    margin: 1.6rem 0 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .contato-lista a{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(232,230,251,0.14);
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  .contato-lista a span.rotulo{
+    font-family: var(--font-editorial);
+    font-style: italic;
+    color: var(--lilas);
+    font-size: 0.85rem;
+  }
+
+  .contato-lista a:hover{ color: var(--azul); }
+
+  .cta-final{
+    font-family: var(--font-script);
+    color: var(--lilas);
+    font-size: 1.8rem;
+    display: block;
+    margin-top: 1.6rem;
+  }
+
+  footer{
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.78rem;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<header class="hero">
+  <span class="assinatura">marina</span>
+  <h1>Ceconello</h1>
+  <p class="cargo">Designer, social media e video maker</p>
+  <p class="bio-curta">Crio identidades e conteúdo pra quem quer aparecer sem parecer todo mundo.</p>
+  <div class="badges">
+    <span>Identidade Visual</span>
+    <span>Social Media</span>
+    <span>Vídeo &amp; 3D</span>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Seções do portfólio">
+  <button class="tab-btn" role="tab" aria-selected="true" data-tab="1"><span class="num">01</span> Quem sou</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="2"><span class="num">02</span> Social Media</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="3"><span class="num">03</span> Vídeo &amp; 3D</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="4"><span class="num">04</span> Identidade Visual</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="5"><span class="num">05</span> Contato</button>
+</nav>
+
+<main>
+
+  <!-- 01 QUEM SOU -->
+  <section id="tab-1" class="panel active">
+    <h2>Quem sou</h2>
+    <p class="kicker">técnica em marketing, com mais de três anos de estrada</p>
+    <p>Trabalho com branding, design gráfico e produção de conteúdo. Tenho um senso estético forte, domínio das ferramentas criativas que uso todo dia e gosto de trabalhar em equipe prestando atenção no detalhe que a maioria deixa passar.</p>
+
+    <p class="section-title">O que eu manjo</p>
+    <ul class="lista-limpa">
+      <li>Identidade visual, branding, concept art, criação de logotipo e manual de marca</li>
+      <li>Social media: feeds, stories e carrosséis, planejamento estratégico e pesquisa de tendências</li>
+      <li>Edição de vídeos curtos (Reels, TikToks, Shorts) e vídeo institucional</li>
+      <li>Modelagem 3D e animação básica</li>
+      <li>Mockups, materiais gráficos, ilustração e slides</li>
+      <li>Pacote Adobe (Photoshop, Illustrator, After Effects), Canva e CapCut</li>
+      <li>WordPress, SEO e HTML</li>
+    </ul>
+
+    <p class="section-title">Formação</p>
+    <div class="formacao-item">
+      <span>FIAP · Tecnólogo em Game Development</span>
+      <span class="quando">fev 2025 até agora</span>
+    </div>
+    <div class="formacao-item">
+      <span>Etec Martin Luther King · Ensino Médio Técnico em Marketing</span>
+      <span class="quando">2021 a 2023</span>
+    </div>
+
+    <p class="section-title">Idiomas</p>
+    <ul class="lista-limpa">
+      <li>Inglês avançado</li>
+      <li>Espanhol básico</li>
+      <li>Japonês básico</li>
+    </ul>
+  </section>
+
+  <!-- 02 SOCIAL MEDIA -->
+  <section id="tab-2" class="panel">
+    <h2>Social Media</h2>
+    <p class="kicker">alcance, saves e conversão, com dado real por trás</p>
+
+    <div class="grid">
+      <div class="card">
+        <span class="stat">3.084</span>
+        <span class="stat-label">impressões no carrossel "Trajetória no Grupo Atlas" (LinkedIn)</span>
+        <p>108 reações, 57 visitas ao perfil e 8 salvamentos num só post.</p>
+      </div>
+      <div class="card">
+        <span class="stat">7.797</span>
+        <span class="stat-label">views no Reel "bola ou mídia?" sobre o Vini Jr (Instagram)</span>
+        <p>7,74% de taxa de interação, o melhor Reel da retomada do perfil.</p>
+      </div>
+      <div class="card">
+        <span class="stat">22,3%</span>
+        <span class="stat-label">taxa de interação no post "comenta aí se vc concorda"</span>
+        <p>A maior taxa de interação do mês, num post de baixo custo de produção.</p>
+      </div>
+    </div>
+
+    <p class="section-title">Meus vídeos mais vistos</p>
+    <p class="aviso">Marina, troque cada bloco abaixo pelo embed real do Instagram, TikTok ou LinkedIn. Procure o botão "compartilhar" do post e escolha "incorporar" para pegar o código.</p>
+    <div class="midia-grid">
+      <!-- Marina: substitua este bloco pelo iframe de embed do seu vídeo -->
+      <div class="midia-slot"><div class="icone">IG</div><span>Reel em destaque do Instagram</span></div>
+      <div class="midia-slot"><div class="icone">TT</div><span>Vídeo em destaque do TikTok</span></div>
+      <div class="midia-slot"><div class="icone">IN</div><span>Carrossel em destaque do LinkedIn</span></div>
+    </div>
+  </section>
+
+  <!-- 03 VÍDEO & 3D -->
+  <section id="tab-3" class="panel">
+    <h2>Vídeo &amp; 3D</h2>
+    <p class="kicker">da gravação à edição, do institucional ao curto pra rede</p>
+
+    <ul class="lista-limpa">
+      <li>Gravação e edição de vídeo institucional para o Grupo Atlas</li>
+      <li>Produção de vídeo apresentando a marca, para a Taiken Consultoria</li>
+      <li>Modelagem 3D e animação básica, desenvolvidas na FIAP</li>
+      <li>Edição de vídeos curtos para Reels, TikToks e Shorts</li>
+    </ul>
+
+    <p class="section-title">Galeria</p>
+    <p class="aviso">Marina, essa é a hora de colocar seus vídeos institucionais e seus modelos 3D. Pode subir o arquivo de vídeo direto, ou linkar pra uma pasta do Drive ou do YouTube.</p>
+    <div class="midia-grid">
+      <div class="midia-slot"><div class="icone">▷</div><span>Vídeo institucional</span></div>
+      <div class="midia-slot"><div class="icone">3D</div><span>Modelo 3D em destaque</span></div>
+      <div class="midia-slot"><div class="icone">▷</div><span>Reel ou short</span></div>
+    </div>
+  </section>
+
+  <!-- 04 IDENTIDADE VISUAL -->
+  <section id="tab-4" class="panel">
+    <h2>Identidade Visual</h2>
+    <p class="kicker">marca, do conceito ao manual de uso</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Grupo Atlas</h3>
+        <p>Identidade visual completa, manual de ética e declarações institucionais para o grupo empresarial. Projeto conduzido como Analista de Marketing.</p>
+      </div>
+      <div class="card">
+        <h3>Taiken Consultoria (TCC)</h3>
+        <p>Design de logotipo, paleta e tipografia, confecção de uniformes e produção de vídeo de apresentação da marca. Projeto de planejamento estratégico completo.</p>
+      </div>
+      <div class="card">
+        <h3>Este site</h3>
+        <p>As cores, as fontes e as molduras que você está vendo agora seguem o meu próprio manual de marca pessoal. Prova de conceito, aplicada na prática.</p>
+      </div>
+    </div>
+
+    <p class="section-title">Peças</p>
+    <p class="aviso">Marina, aqui entram fotos das peças gráficas, do manual de marca e dos uniformes que você já produziu.</p>
+    <div class="midia-grid">
+      <div class="midia-slot"><div class="icone">IV</div><span>Manual de marca Grupo Atlas</span></div>
+      <div class="midia-slot"><div class="icone">IV</div><span>Identidade Taiken Consultoria</span></div>
+      <div class="midia-slot"><div class="icone">IV</div><span>Uniformes e aplicações</span></div>
+    </div>
+  </section>
+
+  <!-- 05 CONTATO -->
+  <section id="tab-5" class="panel">
+    <h2>Contato</h2>
+    <p class="kicker">se curtiu o que viu, me chama</p>
+
+    <div class="contato-painel">
+      <p>Português informal, direto ao ponto: se o meu trabalho fez sentido pra você, é só mandar uma mensagem.</p>
+      <ul class="contato-lista">
+        <li><a href="mailto:marinabceconello@gmail.com"><span class="rotulo">e-mail</span> marinabceconello@gmail.com</a></li>
+        <li><a href="tel:+5511972637970"><span class="rotulo">telefone</span> (11) 97263-7970</a></li>
+        <li><a href="https://www.linkedin.com/in/marinaceconello" target="_blank" rel="noopener"><span class="rotulo">linkedin</span> /in/marinaceconello</a></li>
+        <li><a href="https://www.instagram.com/marinaceconello" target="_blank" rel="noopener"><span class="rotulo">instagram</span> @marinaceconello</a></li>
+        <li><a href="https://www.behance.net/marinaceconello" target="_blank" rel="noopener"><span class="rotulo">behance</span> /marinaceconello</a></li>
+      </ul>
+      <span class="cta-final">bora trocar uma ideia?</span>
+    </div>
+  </section>
+
+</main>
+
+<footer>Marina Ceconello · Portfólio pessoal</footer>
+
+<script>
+  const botoes = document.querySelectorAll('.tab-btn');
+  const paineis = document.querySelectorAll('.panel');
+
+  botoes.forEach(botao => {
+    botao.addEventListener('click', () => {
+      botoes.forEach(b => b.setAttribute('aria-selected', 'false'));
+      paineis.forEach(p => p.classList.remove('active'));
+      botao.setAttribute('aria-selected', 'true');
+      document.getElementById('tab-' + botao.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
